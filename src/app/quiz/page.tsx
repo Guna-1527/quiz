@@ -1,21 +1,44 @@
-import Link from "next/link";
-import { categories } from "../lib/data";
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "../lib/supabase";
+import { Console } from "console";
 
-const QuizCategories = () => {
+interface Category {
+  id: string;
+  name: string;
+}
+
+export default function QuizCategoriesPage() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const { data, error } = await supabase.from("categories").select("*");
+        console.log(data);
+        setCategories(data || []);
+        
+      } catch (err: any) {
+        console.error("❌ Error fetching categories:", err.message);
+      }
+    }
+    fetchCategories();
+  }, []);
+
   return (
-    <div className="container mx-auto text-center py-10">
-      <h1 className="text-3xl font-bold">Choose a Quiz Category</h1>
-      <div className="grid grid-cols-2 gap-4 mt-6">
-        {categories.map((category) => (
-          <Link key={category} href={`/quiz/${category}`}>
-            <div className="border p-4 rounded-lg cursor-pointer hover:bg-gray-100">
-              {category}
-            </div>
-          </Link>
-        ))}
-      </div>
+    <div>
+      <h1>Select a Quiz Category</h1>
+      {categories.length > 0 ? (
+        categories.map((category) => (
+          <button key={category.id} onClick={() => router.push(`/quiz/${category.id}`)}>
+            {category.name}
+          </button>
+        ))
+      ) : (
+        <p>Loading categories...</p>
+      )}
     </div>
   );
 }
-
-export default QuizCategories;
