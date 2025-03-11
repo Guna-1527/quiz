@@ -112,7 +112,7 @@ export default function QuizPage() {
       }
     });
     setScore(finalScore);
-    router.push(`/quiz/result?score=${finalScore}&total=${questions.length}`);
+    router.push(`/quiz/result?score=${score}&total=${questions.length}`);
   };
 
   if (loading)
