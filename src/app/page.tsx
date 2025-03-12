@@ -1,20 +1,22 @@
-import Link from "next/link";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import CTA from "./components/CTA";
+import React from 'react' 
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import Categories from './components/Categories'
+import Guide from './components/Guide'
+import Footer from './components/Footer'
+import CTA from './components/CTA'
 
-const Home = () => {
+const page = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col">
+    <div>
       <Navbar />
       <Hero />
-      <Features />
+      <Categories />
+      <Guide />
       <CTA />
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default page

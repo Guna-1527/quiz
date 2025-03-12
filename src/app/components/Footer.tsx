@@ -1,8 +1,11 @@
 import React from 'react'
+import Social from "../components/Social"
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div>
+      <Social />
+    </div>
   )
 }
 
